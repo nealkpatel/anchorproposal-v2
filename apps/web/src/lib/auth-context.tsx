@@ -20,7 +20,10 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const isPublicResume = usePathname()?.startsWith('/resume/') ?? false;
+  const pathname = usePathname();
+  const isPublicResume = pathname?.startsWith('/resume/') ?? false;
+  const isPublicMarketingPage =
+    pathname === '/' || pathname === '/download';
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [connectionError, setConnectionError] = useState('');
@@ -94,7 +97,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     <AuthContext.Provider
       value={{ user, loading, login, logout, isMaster, isAdmin, canBid }}
     >
-      {connectionError && !isPublicResume ? <div role="alert" className="flex min-h-screen flex-col items-center justify-center gap-4 bg-slate-50 p-6 text-center text-slate-700"><h1 className="text-xl font-semibold">Reconnect to AnchorProposal</h1><p className="max-w-lg text-sm">{connectionError}</p><button className="rounded-lg bg-primary px-4 py-2 text-white" onClick={() => setReconnect(value => value + 1)}>Retry connection</button></div> : children}
+      {connectionError && !isPublicResume && !isPublicMarketingPage ? <div role="alert" className="flex min-h-screen flex-col items-center justify-center gap-4 bg-slate-50 p-6 text-center text-slate-700"><h1 className="text-xl font-semibold">Reconnect to AnchorProposal</h1><p className="max-w-lg text-sm">{connectionError}</p><button className="rounded-lg bg-primary px-4 py-2 text-white" onClick={() => setReconnect(value => value + 1)}>Retry connection</button></div> : children}
     </AuthContext.Provider>
   );
 }
