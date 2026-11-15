@@ -3,7 +3,11 @@ import { DesktopDownload } from '@/components/desktop-download';
 
 export const metadata: Metadata = {
   title: 'Windows app & Chrome extension | AnchorProposal',
-  description: 'Download AnchorProposal for Windows or install the Chrome extension for job capture, applications and parallel resume generation.',
+  description:
+    'Download AnchorProposal for Windows or install the Chrome extension for job capture, applications and parallel resume generation.',
+  alternates: {
+    canonical: '/download',
+  },
 };
 
 export default function DownloadPage() {
