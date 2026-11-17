@@ -3,11 +3,15 @@ import Link from 'next/link';
 import { BrandMark } from '@/components/brand-mark';
 import { StructuredData } from '@/components/structured-data';
 import { guides } from '@/lib/job-search-guides';
-import { SITE_NAME, SITE_ORIGIN } from '@/lib/site';
+import {
+  ABOUT_PATH, RESUME_DEMO_PATH, SITE_ALTERNATE_NAME, SITE_ICON_PATH, SITE_NAME, SITE_ORIGIN, SITE_REPOSITORY_URL,
+} from '@/lib/site';
 
 const title = 'AnchorProposal | AI Resume Tailoring & Job Application Tracker';
 const description =
   'Use AnchorProposal to tailor your resume and cover letter to a job description, review and export your documents, and track your job applications in one place.';
+const siteUrl = `${SITE_ORIGIN}/`;
+const publisherId = `${siteUrl}#organization`;
 
 export const metadata: Metadata = {
   title,
@@ -85,10 +89,27 @@ export default function Home() {
     <div className="min-h-screen bg-white text-slate-900">
       <StructuredData data={{
         '@context': 'https://schema.org',
-        '@type': 'WebSite',
-        name: SITE_NAME,
-        url: `${SITE_ORIGIN}/`,
-        description,
+        '@graph': [
+          {
+            '@type': 'WebSite',
+            '@id': `${siteUrl}#website`,
+            name: SITE_NAME,
+            alternateName: SITE_ALTERNATE_NAME,
+            url: siteUrl,
+            description,
+            publisher: { '@id': publisherId },
+          },
+          {
+            '@type': 'Organization',
+            '@id': publisherId,
+            name: SITE_NAME,
+            alternateName: SITE_ALTERNATE_NAME,
+            url: siteUrl,
+            description: 'AnchorProposal develops software for AI resume tailoring and job application tracking.',
+            logo: `${SITE_ORIGIN}${SITE_ICON_PATH}`,
+            sameAs: [SITE_REPOSITORY_URL],
+          },
+        ],
       }} />
       <a
         href="#main-content"
@@ -109,9 +130,9 @@ export default function Home() {
               Features
             </a>
 
-            <a href="#how-it-works" className="hover:text-primary">
-              How it works
-            </a>
+            <Link href={RESUME_DEMO_PATH} className="hover:text-primary">
+              Resume demo
+            </Link>
 
             <Link href="/guides" className="hover:text-primary">
               Guides
@@ -144,9 +165,9 @@ export default function Home() {
                 id="hero-title"
                 className="mt-5 text-4xl font-semibold leading-tight tracking-tight sm:text-5xl"
               >
-                Tailor your resume to each job with AI.{' '}
+                AI resume tailoring{' '}
                 <span className="text-primary">
-                  Keep applications organized.
+                  with AnchorProposal
                 </span>
               </h1>
 
@@ -166,12 +187,12 @@ export default function Home() {
                   Request access
                 </Link>
 
-                <a
-                  href="#how-it-works"
+                <Link
+                  href={RESUME_DEMO_PATH}
                   className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-6 py-3 font-semibold hover:bg-slate-50"
                 >
-                  See how it works
-                </a>
+                  See a resume example
+                </Link>
               </div>
 
               <p className="mt-4 text-sm text-slate-600">
@@ -408,6 +429,8 @@ export default function Home() {
             </Link>
 
             <Link href="/guides">Guides</Link>
+
+            <Link href={ABOUT_PATH}>About AnchorProposal</Link>
           </nav>
         </div>
       </footer>
