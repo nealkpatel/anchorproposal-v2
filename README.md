@@ -2,6 +2,8 @@
 
 Multi-user platform for AI-assisted resume tailoring and job application management.
 
+[AnchorProposal website](https://anchorproposal.giize.com/) · [About AnchorProposal](https://anchorproposal.giize.com/about) · [AI resume tailoring demo](https://anchorproposal.giize.com/ai-resume-tailoring)
+
 ## Tech Stack
 
 - **Frontend:** Next.js 15, TypeScript, Tailwind CSS, Recharts

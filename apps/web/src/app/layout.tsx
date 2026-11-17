@@ -2,19 +2,19 @@ import type { Metadata, Viewport } from 'next';
 import { AuthProvider } from '@/lib/auth-context';
 import { TimeZoneProvider } from '@/components/time-zone-settings';
 import { Toaster } from 'sonner';
-import { SITE_ORIGIN } from '@/lib/site';
+import { SITE_ICON_PATH, SITE_NAME, SITE_ORIGIN } from '@/lib/site';
 import './fonts/fonts.css';
 import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_ORIGIN),
-  title: 'AnchorProposal - AI Resume Platform',
+  title: `${SITE_NAME} | AI Resume Platform`,
   description: 'AI-assisted resume tailoring and job application management',
   manifest: '/manifest.webmanifest',
-  applicationName: 'AnchorProposal Web',
+  applicationName: SITE_NAME,
   icons: {
-    icon: '/icons/app-192.png',
-    apple: '/icons/app-192.png',
+    icon: { url: SITE_ICON_PATH, type: 'image/png', sizes: '192x192' },
+    apple: SITE_ICON_PATH,
   },
 };
 

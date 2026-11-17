@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { guides } from '@/lib/job-search-guides';
-import { SITE_NAME } from '@/lib/site';
+import { RESUME_DEMO_PATH, SITE_NAME } from '@/lib/site';
 
 const title = 'Resume, Cover Letter & Job Search Guides | AnchorProposal';
 const description = 'Practical examples for tailoring your resume, writing a cover letter, and keeping track of your job applications.';
@@ -20,6 +20,9 @@ export default function GuidesPage() {
       <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600">
         Work through a sample resume edit, draft a cover letter, or set up a tracker for the roles you apply to.
       </p>
+      <Link href={RESUME_DEMO_PATH} className="mt-4 inline-block font-semibold text-primary-deep underline underline-offset-4">
+        See the AI resume tailoring demo
+      </Link>
       <ul className="mt-8 grid gap-5 md:grid-cols-3">
         {guides.map((guide) => (
           <li key={guide.slug} className="rounded-xl border border-slate-200 bg-surface-muted p-6">
