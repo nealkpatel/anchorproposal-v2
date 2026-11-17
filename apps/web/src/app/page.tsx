@@ -1,14 +1,19 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { BrandMark } from '@/components/brand-mark';
+import { StructuredData } from '@/components/structured-data';
+import { guides } from '@/lib/job-search-guides';
+import { SITE_NAME, SITE_ORIGIN } from '@/lib/site';
+
+const title = 'AnchorProposal | AI Resume Tailoring & Job Application Tracker';
+const description =
+  'Use AnchorProposal to tailor your resume and cover letter to a job description, review and export your documents, and track your job applications in one place.';
 
 export const metadata: Metadata = {
-  title: 'AI Resume Tailoring & Application Tracking | AnchorProposal',
-  description:
-    'Tailor resumes and cover letters to job descriptions, review and export your documents, and track job applications with AnchorProposal.',
-  alternates: {
-    canonical: '/',
-  },
+  title,
+  description,
+  alternates: { canonical: '/' },
+  openGraph: { type: 'website', siteName: SITE_NAME, url: '/', title, description },
 };
 
 const features = [
@@ -78,6 +83,13 @@ const questions = [
 export default function Home() {
   return (
     <div className="min-h-screen bg-white text-slate-900">
+      <StructuredData data={{
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: SITE_NAME,
+        url: `${SITE_ORIGIN}/`,
+        description,
+      }} />
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:p-3"
@@ -100,6 +112,10 @@ export default function Home() {
             <a href="#how-it-works" className="hover:text-primary">
               How it works
             </a>
+
+            <Link href="/guides" className="hover:text-primary">
+              Guides
+            </Link>
 
             <Link href="/download" className="hover:text-primary">
               Downloads
@@ -128,17 +144,17 @@ export default function Home() {
                 id="hero-title"
                 className="mt-5 text-4xl font-semibold leading-tight tracking-tight sm:text-5xl"
               >
-                Tailor your resume to each job.{' '}
+                Tailor your resume to each job with AI.{' '}
                 <span className="text-primary">
                   Keep applications organized.
                 </span>
               </h1>
 
               <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-                AnchorProposal helps you create resumes and cover letters from
-                your saved profile and a job description. Review each version,
-                export your documents, and keep your application history
-                together.
+                AnchorProposal combines AI resume tailoring, cover letter
+                generation, and a job application tracker. Start with your
+                saved profile and a job description, then review, edit, and
+                export your documents.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
@@ -313,9 +329,35 @@ export default function Home() {
         </section>
 
         <section
+          aria-labelledby="guides-title"
+          className="border-y border-slate-200 bg-surface-muted"
+        >
+          <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8">
+            <div className="flex flex-wrap items-baseline justify-between gap-4">
+              <h2 id="guides-title" className="text-3xl font-semibold tracking-tight">
+                Job search guides
+              </h2>
+              <Link href="/guides" className="font-semibold text-primary-deep underline underline-offset-4">
+                Browse all guides
+              </Link>
+            </div>
+            <ul className="mt-7 grid gap-5 md:grid-cols-3">
+              {guides.map((guide) => (
+                <li key={guide.slug} className="rounded-xl border border-slate-200 bg-white p-5">
+                  <Link href={`/guides/${guide.slug}`} className="font-semibold text-primary-deep hover:underline">
+                    {guide.title}
+                  </Link>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">{guide.summary}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section
           id="faq"
           aria-labelledby="faq-title"
-          className="mx-auto max-w-4xl px-5 pb-16 sm:px-8"
+          className="mx-auto max-w-4xl px-5 py-16 sm:px-8"
         >
           <h2
             id="faq-title"
@@ -346,7 +388,7 @@ export default function Home() {
       <footer className="border-t border-slate-200 bg-surface-muted">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-5 px-5 py-8 sm:px-8">
           <p className="text-sm text-slate-600">
-            AnchorProposal — AI resume tailoring and job application management.
+            AnchorProposal · AI resume tailoring and job application tracking
           </p>
 
           <nav
@@ -364,6 +406,8 @@ export default function Home() {
             <Link href="/download">
               Downloads
             </Link>
+
+            <Link href="/guides">Guides</Link>
           </nav>
         </div>
       </footer>
